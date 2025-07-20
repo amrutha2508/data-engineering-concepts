@@ -32,7 +32,7 @@ dag_args = {
     }
 
 dag = DAG(
-    "ETL_toll_data",
+    "ETL-toll-data",
     schedule_interval = timedelta(day=1)
     default_args=dag_args,
     description="Apache airflow assignment",
@@ -108,3 +108,12 @@ transform_data = BashOperator(
 )
 
 download_dataset >> untar_dataset >> unzip_data >> extract_data_from_csv >> extract_data_from_fixed_width >> extract_data_from_tsv >> consolidate_data >> transform_data
+
+
+# export AIRFLOW_HOME=/home/project/airflow
+# echo $AIRFLOW_HOME
+
+# cp ETL_toll_data.py $AIRFLOW_HOME/dags
+# airflow dags list|grep "ETL-toll-data"
+
+# airflow tasks list ETL-toll-data
